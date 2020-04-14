@@ -8,7 +8,7 @@ function MemberList(props) {
         <p>Email: {props.curr.email}</p>
         <p>Role: {props.curr.role}</p>
       </div>
-      <button>Edit</button>
+      <button onClick={props.handleEdit}>Edit</button>
     </div>
   );
 }

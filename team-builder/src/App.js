@@ -10,6 +10,15 @@ function App() {
     email: "",
     role: "",
   });
+  const [memberToEdit, setMemberToEdit] = useState({});
+
+  const handleEdit = (e) => {
+    setMemberToEdit({
+      ...memberToEdit,
+      [e.target.name]: e.target.value,
+    });
+    console.log(memberToEdit);
+  };
 
   const handleChange = (e) => {
     setMemberDetails({
@@ -27,7 +36,11 @@ function App() {
 
   return (
     <div className="App">
-      <Form handleChange={handleChange} handleSubmit={handleSubmit} />
+      <Form
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        memberToEdit={memberToEdit}
+      />
       <h2>Team Members</h2>
       {teamMembers.length === 0 ? (
         <div>
@@ -35,7 +48,7 @@ function App() {
         </div>
       ) : (
         teamMembers.map((curr, index) => {
-          return <MemberList key={index} curr={curr} />;
+          return <MemberList key={index} curr={curr}  handleEdit={handleEdit}/>;
         })
       )}
     </div>
