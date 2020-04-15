@@ -1,24 +1,23 @@
 import React, { useState } from "react";
 import "./App.css";
 import Form from "./components/Form";
-import MemberList from "./components/MemberList";
 
-function App() {
+function App(props) {
   const initialMemberList = [
     {
-      id: 1,
+      id: uuid(),
       name: "Alex",
       email: "alex@lambda.com",
       role: "Frontend develop",
     },
     {
-      id: 2,
+      id: uuid(),
       name: "Gabe",
       email: "gabe@lambda.com",
       role: "Backend develop",
     },
     {
-      id: 3,
+      id: uuid(),
       name: "Tom",
       email: "tom@lambda.com",
       role: "Full-Stack Developer",
@@ -35,6 +34,17 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Add a new member to the member list
+    setMemberList([...initialMemberList, { ...memberForm, id: uuid() }]);
+    // This can also be re-written as
+    // const newMember = {
+    //   name: memberForm.name,
+    //   email: memberForm.email,
+    //   id: uuid(),
+    // };
+
+    // const newMemberList = memberList.concat(newMember);
+    // setMemberList(newMemberList);
   };
 
   const handleChange = (e) => {
@@ -46,15 +56,18 @@ function App() {
 
   return (
     <div className="App">
-      <Form handleChange={handleChange}/>
+      <Form
+        handleChange={handleChange}
+        memberForm={memberForm}
+        handleSubmit={handleSubmit}
+      />
       <h2>Team Members</h2>
       {initialMemberList.map((member) => (
         <h5>
-          My name is {member.name}, I am a {member.role}, you can reach me on 
+          My name is {member.name}, I am a {member.role}, you can reach me on
           {member.email}
           <button>Edit</button>
         </h5>
-      
       ))}
     </div>
   );

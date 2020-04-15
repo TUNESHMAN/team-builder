@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import MemberList from "./MemberList";
+
 
 function Form(props) {
+  const { name, email, role } = props.memberForm;
   return (
     <div>
       <h1>Team Members Form</h1>
@@ -10,6 +11,7 @@ function Form(props) {
           Name:
           <input
             type="text"
+            value={name}
             name="name"
             placeholder="Enter your name here"
             onChange={props.handleChange}
@@ -18,6 +20,7 @@ function Form(props) {
         <label>
           email:
           <input
+            value={email}
             type="email"
             name="email"
             placeholder="Enter your email here"
@@ -26,7 +29,12 @@ function Form(props) {
         </label>
         <label>
           Role:
-          <select type="text" name="role" onChange={props.handleChange}>
+          <select
+            type="text"
+            value={role}
+            name="role"
+            onChange={props.handleChange}
+          >
             <option></option>
             <option>UI</option>
             <option>UX</option>
