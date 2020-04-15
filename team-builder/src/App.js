@@ -4,53 +4,48 @@ import Form from "./components/Form";
 import MemberList from "./components/MemberList";
 
 function App() {
-  const [teamMembers, setTeamMembers] = useState([]);
-  const [memberDetails, setMemberDetails] = useState({
+  const initialMemberList = [
+    {
+      id: uuid(),
+      name: "Alex",
+      email: "alex@lambda.com",
+      role: "Frontend develop",
+    },
+    {
+      id: uuid(),
+      name: "Gabe",
+      email: "gabe@lambda.com",
+      role: "Backend develop",
+    },
+    {
+      id: uuid(),
+      name: "Tom",
+      email: "tom@lambda.com",
+      role: "Full-Stack Developer",
+    },
+  ];
+
+  const initialMemberForm = {
     name: "",
     email: "",
-    role: "",
-  });
-  const [memberToEdit, setMemberToEdit] = useState({});
-
-  const handleEdit = (e) => {
-    setMemberToEdit({
-      ...memberToEdit,
-      [e.target.name]: e.target.value,
-    });
-    console.log(memberToEdit);
   };
-
-  const handleChange = (e) => {
-    setMemberDetails({
-      ...memberDetails,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const [memberForm, setMemberForm] = useState(initialMemberForm);
+  const [memberList, setMemberList] = useState(initialMemberList);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTeamMembers(teamMembers.concat(memberDetails));
-
-    e.target.reset();
   };
 
   return (
     <div className="App">
-      <Form
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-        memberToEdit={memberToEdit}
-      />
+      <Form />
       <h2>Team Members</h2>
-      {teamMembers.length === 0 ? (
-        <div>
-          <p>There are no members in this team.</p>
-        </div>
-      ) : (
-        teamMembers.map((curr, index) => {
-          return <MemberList key={index} curr={curr}  handleEdit={handleEdit}/>;
-        })
-      )}
+      {initialMemberList.map((member) => (
+        <h5>
+          My name is {member.name}, I am a {member.role}, you can reach me on{" "}
+          {member.email}
+        </h5>
+      ))}
     </div>
   );
 }
