@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 // import * as uuid from "uuid";
 import Form from "./components/Form";
-import uuid from 'uuid/v4'
+import uuid from "uuid/v4";
 
 function App(props) {
   const initialMemberList = [
@@ -36,17 +36,20 @@ function App(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let member = {};
+    let members = [...memberList];
+    if (!memberForm.id) {
+      member = { ...memberForm, id: uuid() };
+    } else {
+      member = memberForm;
+      members = members.filter((m) => m.id !== member.id);
+    }
     // Add a new member to the member list
     // setMemberList([...initialMemberList, { ...memberForm, id: uuid() }]);
-    // This can also be re-written as
-    const newMember = {
-      name: memberForm.name,
-      email: memberForm.email,
-      id: uuid(),
-    };
+    // This can also be re-written a
 
-    const newMemberList = memberList.concat(newMember);
-    setMemberList(newMemberList);
+    const newMembers = members.concat(member);
+    setMemberList(newMembers);
     setMemberForm(initialMemberForm);
   };
 
@@ -65,11 +68,11 @@ function App(props) {
         handleSubmit={handleSubmit}
       />
       <h2>Team Members</h2>
-      {initialMemberList.map((member) => (
+      {memberList.map((member) => (
         <h5>
           My name is {member.name}, I am a {member.role}, you can reach me on
           {member.email}
-          <button>Edit</button>
+          <button onClick={() => setMemberForm(member)}>Edit</button>
         </h5>
       ))}
     </div>

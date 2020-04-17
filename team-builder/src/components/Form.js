@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-
 function Form(props) {
   const { name, email, role } = props.memberForm;
   return (
@@ -29,18 +28,13 @@ function Form(props) {
         </label>
         <label>
           Role:
-          <select
-            type="text"
-            value={role}
-            name="role"
-            onChange={props.handleChange}
-          >
-            <option></option>
-            <option>UI</option>
-            <option>UX</option>
-            <option>Frontend Engineer</option>
-            <option>Backend Engineer</option>
-            <option>Full-Stack Developer</option>
+          <select type="text" name="role" onChange={props.handleChange} value={role}>
+            <option ></option>
+            <option value="UI">UI</option>
+            <option value="UX">UX</option>
+            <option value="Frontend develop">Frontend Engineer</option>
+            <option value="Backend develop">Backend Engineer</option>
+            <option value="Full-Stack Developer">Full-Stack Developer</option>
           </select>
         </label>
         <input type="submit" />
